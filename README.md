@@ -1,13 +1,13 @@
-# ISPchecker
+# ISPChecker
 
 Wrapper script around the speedtest-cli [python module](https://pypi.org/project/speedtest-cli/), check out the repository [here](https://github.com/sivel/speedtest-cli).
-This script provides a way to either test the speed of you internet connection, or if you have been saving data, plot the variation in speed over time.
+This script provides a way to either test the speed of your internet connection, or if you have been saving data, plot the variation in speed over time.
 
 
 
 ## Setup
 
-Make sure you have the [python module](https://pypi.org/project/speedtest-cli/) installed, simplest way is via [pip](https://packaging.python.org/tutorials/installing-packages/#installing-from-pypi).
+Make sure you have the [speedtest module](https://pypi.org/project/speedtest-cli/) installed, simplest way is via [pip](https://packaging.python.org/tutorials/installing-packages/#installing-from-pypi).
 Python 2 will soon be [out](https://pythonclock.org/) so explicitly call the python 3 version and lets assume we want to install for the user only.
 
 ```bash

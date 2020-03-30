@@ -43,7 +43,7 @@ def PrintTestResults():
     """
     timestamp, down, up, ping, isp = DownloadTest()
     Mbits = 1024*1024
-    return "{},{},{:.2f},{:.2f},{:.2f}".format(timestamp, isp, ping, down/Mbits, up/Mbits)
+    return "{},{},{:.2f},{:.2f},{:.2f},".format(timestamp, isp, ping, down/Mbits, up/Mbits)
 
 
 def WriteTestResults(outfile):
@@ -54,7 +54,7 @@ def WriteTestResults(outfile):
 
     @return: Nothing
     """
-    HEADER = "Timestamp,ISP,Ping (ms),Download (Mbit/s),Upload (Mbit/s)\n"
+    HEADER = "Timestamp,ISP,Ping (ms),Download (Mbit/s),Upload (Mbit/s),Comments\n"
 
     if os.path.exists(outfile) is not True:
         f = open(outfile, "w")
@@ -76,9 +76,9 @@ def ReadDatafile(infile):
     data = pandas.read_csv(infile, parse_dates=['Timestamp'],
                            date_parser=lambda x: pandas.to_datetime(x))
 
-    requiredColumns = ['Timestamp', 'Download (Mbit/s)']
+    requiredColumns = ['Timestamp', 'Download (Mbit/s)', 'Comments']
     data = data[requiredColumns]
-    niceNames = {'Timestamp': 'Date', 'Download (Mbit/s)': 'Speed Results'}
+    niceNames = {'Timestamp': 'Date', 'Download (Mbit/s)': 'Speed Results', 'Comments' : 'Comments'}
     data = data.rename(columns=niceNames)
 
     return data
@@ -122,7 +122,7 @@ def DynamicPlot(data):
 
     @return: Nothing
     """
-    trace = go.Scatter(x=data['Date'], y=data['Speed Results'])
+    trace = go.Scatter(hovertext=data['Comments'], x=data['Date'], y=data['Speed Results'])
 
     layout = go.Layout(
         xaxis=dict(title='Date', zeroline=False, rangeslider=dict(visible=True)),

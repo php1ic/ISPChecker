@@ -9,7 +9,7 @@ Make sure you have the necessary modules installed, simplest way is via [pip](ht
 Python 2 will soon be [out](https://pythonclock.org/) so explicitly call the python 3 version and lets assume we want to install for the user only.
 
 ```bash
-pip3 install --user speedtest-cli pandas plotly matplotlib
+pip3 install --user -r requirements.txt
 ```
 
 The [speedtest module](https://pypi.org/project/speedtest-cli/) will run the actual test, the others are used to read and plot the data.
@@ -37,7 +37,7 @@ Running with no arguments will run a single speed measurement which, depending o
 Output will have the following format:
 
 ```bash
-Timestamp,ISP,Ping (ms),Download (Mbit/s),Upload (Mbit/s)
+Timestamp,ISP,Ping (ms),Download (Mbit/s),Upload (Mbit/s),Comment
 ```
 
 The ```-o``` option can be used to append the data to a specified file.
@@ -45,7 +45,7 @@ This should prove useful if you want to create a [long term monitor](#using-as-a
 
 The ```-i``` option can be used to display the data from the specified file.
 Data is read into a [pandas](https://pandas.pydata.org/) dataframe then plot with [plotly](https://plot.ly/python/) so you can play with it (default), or more of a summary display graph is created with pandas standard plotting interface if you use the ```-s``` flag.
-Currently the project assumes that the file to be plotted has either the same format as that produced with the ```-o``` option, or at the very least has columns labelled ```Timestamp``` and ```Download (Mbit/s)```.
+Currently the project assumes that the file to be plotted has either the same format as that produced with the ```-o``` option, or at the very least has columns labelled ```Timestamp``` and ```Download (Mbit/s)``` and ```Comments```.
 
 ## Using as a long term monitor
 

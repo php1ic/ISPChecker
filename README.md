@@ -6,7 +6,7 @@ This script provides a way to either test the speed of your internet connection,
 ## Installation & Setup
 
 Make sure you have the necessary modules installed, simplest way is via [pip](https://packaging.python.org/tutorials/installing-packages/#installing-from-pypi).
-Python 2 will soon be [out](https://pythonclock.org/) so explicitly call the python 3 version and lets assume we want to install for the user only.
+Explicitly call the python 3 version and lets assume we want to install for the user only.
 
 ```bash
 pip3 install --user -r requirements.txt

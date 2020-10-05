@@ -122,7 +122,10 @@ def DynamicPlot(data):
 
     @return: Nothing
     """
-    trace = go.Scatter(hovertext=data['Comments'], x=data['Date'], y=data['Speed Results'])
+    trace = go.Scatter(hovertext=data['Comments'],
+                       x=data['Date'],
+                       y=data['Speed Results']
+                       )
 
     layout = go.Layout(
         xaxis=dict(title='Date', zeroline=False, rangeslider=dict(visible=True)),
@@ -133,7 +136,11 @@ def DynamicPlot(data):
     )
 
     fig = go.Figure(data=[trace], layout=layout)
-    plotly.offline.plot(fig, validate=False, filename='ispchecker_plotly.html')
+    plotly.offline.plot(fig,
+                        validate=False,
+                        filename='ispchecker_plotly.html',
+                        auto_open=False
+                        )
 
 
 def main(args):

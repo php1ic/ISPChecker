@@ -1,6 +1,9 @@
 # Don't track any created datafile
 *.csv
 
+# python files
+__pycache__/**
+
 # emacs backups
 *~
 

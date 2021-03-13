@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import datetime
 import os
 
 import matplotlib.pyplot as plt
@@ -13,7 +14,7 @@ import plotly.graph_objs as go
 import speedtest
 
 
-def DownloadTest():
+def DownloadTest(my_isp: str = None):
     """
     Run the download test and return download, upload and ping values
 
@@ -21,19 +22,27 @@ def DownloadTest():
 
     @return: Download and upload values in Mbits/second and ping value in ms
     """
-    s = speedtest.Speedtest()
-    s.get_servers()
-    s.get_best_server()
-    s.download()
-    s.upload()
-    res = s.results.dict()
+    try:
+        s = speedtest.Speedtest()
+        s.get_servers()
+        s.get_best_server()
+        s.download()
+        s.upload()
+        res = s.results.dict()
+    except speedtest.ConfigRetrievalError:
+        res = {'timestamp': f"{datetime.datetime.utcnow().isoformat()}Z",
+               'download': -1.0,
+               'upload': -1.0,
+               'ping': -1.0,
+               'client': {'isp': my_isp}
+               }
 
     # We could return the entire json element,
     # it's just as simple to read/plot in python, but lets not
     return res['timestamp'], res["download"], res["upload"], res["ping"], res["client"]["isp"]
 
 
-def PrintTestResults():
+def PrintTestResults(my_isp: str = None):
     """
     Initiate the speed test and return the results with a timestamp
 
@@ -41,7 +50,7 @@ def PrintTestResults():
 
     @return: str with timestamp and speed test results
     """
-    timestamp, down, up, ping, isp = DownloadTest()
+    timestamp, down, up, ping, isp = DownloadTest(my_isp)
     Mbits = 1024*1024
     return "{},{},{:.2f},{:.2f},{:.2f},".format(timestamp, isp, ping, down/Mbits, up/Mbits)
 
@@ -164,7 +173,7 @@ def main(args):
         if options.outfile is not None:
             WriteTestResults(options.outfile)
         else:
-            print(PrintTestResults())
+            print(PrintTestResults(options.provider))
 
 
 def parse_arguments():
@@ -196,6 +205,10 @@ def parse_arguments():
                         dest="static",
                         action="store_true")
 
+    parser.add_argument("-p", "--provider",
+                        help="Value to use as ISP if the connection is down",
+                        default="Virgin Media",
+                        type=str)
     return parser
 
 

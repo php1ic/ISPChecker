@@ -14,7 +14,7 @@ import plotly.graph_objs as go
 import speedtest
 
 
-def DownloadTest(my_isp: str = None):
+def DownloadTest(my_isp: str = "ISP"):
     """
     Run the download test and return download, upload and ping values
 
@@ -42,7 +42,7 @@ def DownloadTest(my_isp: str = None):
     return res['timestamp'], res["download"], res["upload"], res["ping"], res["client"]["isp"]
 
 
-def PrintTestResults(my_isp: str = None):
+def PrintTestResults(my_isp: str = "ISP"):
     """
     Initiate the speed test and return the results with a timestamp
 

@@ -83,7 +83,7 @@ def ReadDatafile(infile):
     @return: A panda dataframe containing date and download speed
     """
     data = pandas.read_csv(infile, parse_dates=['Timestamp'],
-                           date_parser=lambda x: pandas.to_datetime(x))
+                           date_format="%Y-%m-%dT%H:%M:S.%fZ")
 
     requiredColumns = ['Timestamp', 'Download (Mbit/s)', 'Comments']
     data = data[requiredColumns]

@@ -207,7 +207,7 @@ def parse_arguments():
 
     parser.add_argument("-p", "--provider",
                         help="Value to use as ISP if the connection is down",
-                        default="Virgin Media",
+                        default="ACME",
                         type=str)
     return parser
 
